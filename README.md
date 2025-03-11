@@ -128,7 +128,7 @@ In the project's root directory,
 
 ```bash
 ${ISAACLAB_PATH:?}/isaaclab.sh -p scripts/rsl_rl/train_teacher_policy.py \
-    --num_envs 10 \
+    --num_envs 1024 \
     --reference_motion_path neural_wbc/data/data/motions/stable_punch.pkl
 ```
 
@@ -141,7 +141,7 @@ The teacher policy is trained for 10000000 iterations, or until the user interru
 In the project's root directory,
 ```bash
 ${ISAACLAB_PATH:?}/isaaclab.sh -p scripts/rsl_rl/train_student_policy.py \
-    --num_envs 10 \
+    --num_envs 1024 \
     --reference_motion_path neural_wbc/data/data/motions/stable_punch.pkl \
     --teacher_policy.resume_path neural_wbc/data/data/policy/h1:teacher \
     --teacher_policy.checkpoint model_<iteration_number>.pt
