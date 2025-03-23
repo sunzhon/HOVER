@@ -49,8 +49,8 @@ demonstrations and to link to the original implementation in Isaac Gym, please v
 # Installation
 
 1. Install Isaac Lab, see the [installation guide](https://isaac-sim.github.io/IsaacLab/v2.0.0/source/setup/installation/index.html).
-    **Note**: Currently Isaac Lab 2.0.0 is supported. After you clone the Isaac Lab
-    repository, check out the `v2.0.0` tag before installation. Also note that the `rsl_rl`
+    **Note**: Currently HOVER has been tested with Isaac Lab versions 2.0.0 and 2.1.0. After you clone the Isaac Lab
+    repository, check out the specific tag before installation. Also note that the `rsl_rl`
     package is renamed to `rsl_rl_lib` with the current `v2.0.0` tag of Isaac Lab, causing installation issues.
     This will be fixed once a new tag is created on the Isaac Lab repo.
     This error would not affect this repo, as we have our own customized `rsl_rl` package.
@@ -280,6 +280,8 @@ The evaluation script, `scripts/rsl_rl/eval.py`, uses the same arguments as the 
 ```bash
 ${ISAACLAB_PATH}/isaaclab.sh -p scripts/rsl_rl/eval.py \
     --num_envs 10 \
+    --teacher_policy.resume_path neural_wbc/data/data/policy/h1:teacher \
+    --teacher_policy.checkpoint model_<iteration_number>.pt
 ```
 
 
