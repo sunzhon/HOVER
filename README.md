@@ -170,6 +170,24 @@ The exact path of the teacher policy does not matter, but it is recommended to s
         --teacher_policy.checkpoint model_<iteration_number>.pt
     ```
 
+- Training requires a single GPU, we found the following performance when training on different
+    GPUs:
+    <br>
+
+    **Teacher Training:**
+    | GPU       | Num Iterations | Time per Iteration (s) | Training Time (h) |
+    |-----------|----------------|------------------------|-------------------|
+    | RTX 4090  | 100'000        | 0.84                   | 23.3              |
+    | RTX A6000 | 100'000        | 1.90                   | 52.8              |
+    | L40       | 100'000        | 1.61                   | 44.6              |
+
+    **Student Training:**
+    | GPU       | Num Iterations | Time per Iteration (s) | Training Time (h) |
+    |-----------|----------------|------------------------|-------------------|
+    | RTX 4090  | 10'000         | 0.097                  | 0.27              |
+    | RTX A6000 | 10'000         | 0.18                   | 0.50              |
+    | L40       | 10'000         | 0.176                  | 0.49              |
+
 ## Generalist vs. Specialist Policy
 
 The codebase allows to train both generalist and specialist policies:
