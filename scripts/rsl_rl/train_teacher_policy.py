@@ -23,17 +23,12 @@ import argparse
 # local imports
 from teacher_policy_cfg import TeacherPolicyCfg
 from utils import get_customized_rsl_rl, get_ppo_runner_and_checkpoint_path
+from utils import get_player_args  # isort: skip
 
 from isaaclab.app import AppLauncher
 
 # add argparse arguments
-parser = argparse.ArgumentParser(
-    description="Train an RL agent with RSL-RL.", formatter_class=argparse.ArgumentDefaultsHelpFormatter
-)
-parser.add_argument("--num_envs", type=int, default=None, help="Number of environments to simulate.")
-parser.add_argument("--seed", type=int, default=None, help="Seed used for the environment")
-parser.add_argument("--reference_motion_path", type=str, default=None, help="Path to the reference motion dataset.")
-parser.add_argument("--robot", type=str, choices=["h1", "lus2"], default="lus2", help="Robot used in environment")
+parser = get_player_args(description="Plays motion tracking policy in Isaac Lab.")
 
 # append RSL-RL cli arguments
 TeacherPolicyCfg.add_args_to_parser(parser)

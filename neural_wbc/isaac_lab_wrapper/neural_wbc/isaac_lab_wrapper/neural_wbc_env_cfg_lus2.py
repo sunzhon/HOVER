@@ -262,7 +262,8 @@ class NeuralWBCEnvCfgLus2(NeuralWBCEnvCfg):
     def __post_init__(self):
         super().__post_init__()
 
-        self.reference_motion_manager.motion_path = get_data_path("../../../../humanoid_demo_retarget/data/lus2_joint27/fit_motion/CMU_CMU_80.pkl")
+        #self.reference_motion_manager.motion_path = get_data_path("../../../../humanoid_demo_retarget/data/lus2_joint27/fit_motion/CMU_CMU_80.pkl")
+        self.reference_motion_manager.motion_path = get_data_path("../../../../humanoid_demo_retarget/data/lus2_joint27/fit_motion/Select_S29_Gesture_17_poses.pkl")
         self.reference_motion_manager.skeleton_path = get_data_path("../../../../lumos_rl_gym/resources/robots/lus2/mjcf/lus2_joint27.xml")
         
         # flat terrain
@@ -273,7 +274,12 @@ class NeuralWBCEnvCfgLus2(NeuralWBCEnvCfg):
 
         if self.mode == NeuralWBCModes.TRAIN:
             self.episode_length_s = 20.0
-            self.max_ref_motion_dist = 0.5
+
+            # Termination conditions
+            self.max_ref_motion_dist = 0.5+10
+            self.gravity_x_threshold = 0.7
+            self.gravity_y_threshold = 0.7
+
             self.events = NeuralWBCTrainEventCfg()
             self.events.reset_robot_rigid_body_mass.params["asset_cfg"].body_names = self.mass_randomized_body_names
             self.events.reset_robot_base_com.params["asset_cfg"].body_names = "pelvis" #"torso_link"

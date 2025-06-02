@@ -218,8 +218,8 @@ class NeuralWBCRewards:
         ref_body_pos_extend = ref_motion_state.body_pos_extend
 
         diff_global_body_pos = ref_body_pos_extend - body_pos_extend
-        diff_global_body_pos_lower = diff_global_body_pos[:, :11]
-        diff_global_body_pos_upper = diff_global_body_pos[:, 11:]
+        diff_global_body_pos_lower = diff_global_body_pos[:, :12] # 12 is torso_link
+        diff_global_body_pos_upper = diff_global_body_pos[:, 12:]
         diff_body_pos_dist_lower = (diff_global_body_pos_lower**2).mean(dim=-1).mean(dim=-1)
         diff_body_pos_dist_upper = (diff_global_body_pos_upper**2).mean(dim=-1).mean(dim=-1)
         r_body_pos_lower = torch.exp(-diff_body_pos_dist_lower / self._cfg.body_pos_lower_body_sigma)
@@ -357,8 +357,8 @@ class NeuralWBCRewards:
         Returns:
             torch.Tensor: A float tensor of shape (num_envs) representing the computed penalty for each environment.
         """
-        # Joints 0 - 10 are lower body joints in Isaac Gym.
-        return torch.sum(torch.square(previous_actions[:, :11] - actions[:, :11]), dim=1)
+        # Joints 0 - 11 are lower body joints.
+        return torch.sum(torch.square(previous_actions[:, :12] - actions[:, :12]), dim=1)
 
     def penalize_upper_body_action_changes(
         self,
@@ -374,8 +374,8 @@ class NeuralWBCRewards:
         Returns:
             torch.Tensor: A float tensor of shape (num_envs) representing the computed penalty for each environment.
         """
-        # Joints 11 - 19 are upper body joints in Isaac Gym.
-        return torch.sum(torch.square(previous_actions[:, 11:] - actions[:, 11:]), dim=1)
+        # Joints 12 - 26 are upper body joints.
+        return torch.sum(torch.square(previous_actions[:, 12:] - actions[:, 12:]), dim=1)
 
     def penalize_by_joint_pos_limits(
         self,
